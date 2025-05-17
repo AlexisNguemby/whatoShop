@@ -1,0 +1,27 @@
+RewriteEngine On
+
+# Définir le répertoire de base
+RewriteBase /vent/
+
+# Autoriser l'accès à tous les fichiers
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order Allow,Deny
+    Allow from all
+</IfModule>
+
+# Rediriger toutes les requêtes vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Forcer HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Empêcher l'accès aux fichiers sensibles
+<FilesMatch "^(\.htaccess|\.htpasswd|\.git|\.env|composer\.(json|lock))$">
+    Require all denied
+</FilesMatch>
