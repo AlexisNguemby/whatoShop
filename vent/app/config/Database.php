@@ -7,8 +7,8 @@ use PDOException;
 class Database {
     private $host = 'localhost:3306';
     private $dbname = 'alexis-nguemby-mbina_vent';
-    private $username = 'alexis-nguemby';
-    private $password = '18116697Al';
+    private $username = 'insert dbname';
+    private $password = 'insert passwordname';
 
     // Changer "protected" en "public"
     public function connect() {
